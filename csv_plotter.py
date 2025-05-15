@@ -60,10 +60,6 @@ if df is not None:
             st.subheader(f"{plot_type} of {y_axis} vs {x_axis}")
             try:
                 if plot_type == "Bar Chart":
-                    # For simplicity in a short workshop, we'll plot directly.
-                    # For categorical X, this might show multiple bars per category if Y is not aggregated.
-                    # A more robust version would aggregate (e.g., mean, sum, count).
-                    # Let's do a simple value_counts if x is categorical and y is a measure related to it
                     if df[x_axis].dtype == 'object' and df[x_axis].nunique() < 20: # Heuristic for categorical
                         st.bar_chart(df.groupby(x_axis)[y_axis].mean()) # Show mean as an example
                         st.caption(f"Showing mean of {y_axis} for each {x_axis}")
@@ -78,7 +74,6 @@ if df is not None:
                 st.error("Ensure X and Y axes are compatible for the selected plot type.")
         else:
             st.info("Please select X and Y axes to generate a plot.")
-    # Add this inside the `if df is not None:` block, perhaps above plotting
 
     with st.expander("View Data Summary"):
         st.write("**Shape:**", df.shape)
